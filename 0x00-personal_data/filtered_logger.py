@@ -22,8 +22,7 @@ def filter_datum(
 
 
 class RedactingFormatter(logging.Formatter):
-    """ Redacting Formatter class
-        """
+    """ Redacting Formatter class"""
 
     REDACTION = "***"
     FORMAT = "[HOLBERTON] %(name)s %(levelname)s %(asctime)-15s: %(message)s"
@@ -38,6 +37,10 @@ class RedactingFormatter(logging.Formatter):
     def format(self, record: logging.LogRecord) -> str:
         """Formats the log record."""
         message = super(RedactingFormatter, self).format(record)
-        text = filter_datum(self.fields, self.REDACTION, message, self.SEPARATOR)
+        text = filter_datum(
+            self.fields,
+            self.REDACTION,
+            message,
+            self.SEPARATOR,
+        )
         return (text)
-
