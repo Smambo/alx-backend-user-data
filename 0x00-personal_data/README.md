@@ -61,6 +61,26 @@ class RedactingFormatter(logging.Formatter):
 Update the class to accept a list of strings `fields` constructor argument.
 Implement the `format` method to filter values in incoming log records using `filter_datum`. Values for fields in `fields` should be filtered.
 DO NOT extrapolate `FORMAT` manually. The `format` method should be less than 5 lines long.<br>
+```
+simam@DESKTOP-5QTVNRV:~/alx-backend-user-data/0x00-personal_data$ cat 1-main.py 
+#!/usr/bin/env python3
+"""
+Main file
+"""
+
+import logging
+import re
+
+RedactingFormatter = __import__('filtered_logger').RedactingFormatter
+
+message = "name=Bob;email=bob@dylan.com;ssn=000-123-0000;password=bobby2019;"
+log_record = logging.LogRecord("my_logger", logging.INFO, None, None, message, None, None)
+formatter = RedactingFormatter(fields=("email", "ssn", "password"))
+print(formatter.format(log_record))
+simam@DESKTOP-5QTVNRV:~/alx-backend-user-data/0x00-personal_data$ ./1-main.py 
+[HOLBERTON] my_logger INFO 2024-04-11 14:03:56,391: name=Bob;email=***;ssn=***;password=***;
+simam@DESKTOP-5QTVNRV:~/alx-backend-user-data/0x00-personal_data$
+```
 
 ### [2. Create logger](./filtered_logger.py)<br>
 Use [user_data.csv](./user_data.csv) for this task
@@ -70,6 +90,25 @@ Implement a `get_logger` function that takes no arguments and returns a `logging
 The logger should be named `"user_data"` and only log up to `logging.INFO` level. It should not propagate messages to other loggers. It should have a `StreamHandler` with `RedactingFormatter` as formatter.
 
 Create a tuple `PII_FIELDS` constant at the root of the module containing the fields from `user_data.csv` that are considered PII. `PII_FIELDS` can contain only 5 fields - choose the right list of fields that can are considered as “important” PIIs or information that you <b>must hide</b> in your logs. Use it to parameterize the formatter.<br>
+```
+simam@DESKTOP-5QTVNRV:~/alx-backend-user-data/0x00-personal_data$ cat 2-main.py 
+#!/usr/bin/env python3
+"""
+Main file
+"""
+
+import logging
+
+get_logger = __import__('filtered_logger').get_logger
+PII_FIELDS = __import__('filtered_logger').PII_FIELDS
+
+print(get_logger.__annotations__.get('return'))
+print("PII_FIELDS: {}".format(len(PII_FIELDS)))
+simam@DESKTOP-5QTVNRV:~/alx-backend-user-data/0x00-personal_data$ ./2-main.py 
+<class 'logging.Logger'>
+PII_FIELDS: 5
+simam@DESKTOP-5QTVNRV:~/alx-backend-user-data/0x00-personal_data$
+```
 
 ### [3. Connect to secure database](./filtered_logger.py)<br>
 Database credentials should NEVER be stored in code or checked into version control. One secure option is to store them as environment variable on the application server.
