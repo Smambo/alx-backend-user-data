@@ -17,6 +17,26 @@ Write a function called `filter_datum` that returns the log message obfuscated:
 * The function should use a regex to replace occurrences of certain field values.
 * `filter_datum` should be less than 5 lines long and use `re.sub` to perform the substitution with a single regex.<br>
 
+```
+simam@DESKTOP-5QTVNRV:~/alx-backend-user-data/0x00-personal_data$ cat main.py 
+#!/usr/bin/env python3
+"""
+Main file
+"""
+
+filter_datum = __import__('filtered_logger').filter_datum
+
+fields = ["password", "date_of_birth"]
+messages = ["name=egg;email=eggmin@eggsample.com;password=eggcellent;date_of_birth=12/12/1986;", "name=bob;email=bob@dylan.com;password=bobbycool;date_of_birth=03/04/1993;"]
+
+for message in messages:
+    print(filter_datum(fields, 'xxx', message, ';'))
+simam@DESKTOP-5QTVNRV:~/alx-backend-user-data/0x00-personal_data$ ./main.py 
+name=egg;email=eggmin@eggsample.com;password=xxx;date_of_birth=xxx;
+name=bob;email=bob@dylan.com;password=xxx;date_of_birth=xxx;
+simam@DESKTOP-5QTVNRV:~/alx-backend-user-data/0x00-personal_data$
+```
+
 ### [1. Log formatter](./filtered_logger.py)<br>
 Copy the following code into `filtered_logger.py`.<br>
 ```ps1
