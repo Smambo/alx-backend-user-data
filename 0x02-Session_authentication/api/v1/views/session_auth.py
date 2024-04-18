@@ -15,12 +15,12 @@ def login() -> Tuple[str, int]:
     """
     email = request.form.get('email')
     password = request.form.get('password')
-    no_user = { "error": "no user found for this email" }
+    no_user = {"error": "no user found for this email"}
 
     if email is None or len(email.strip()) == 0:
-        return jsonify({ "error": "email missing" }), 400
+        return jsonify({"error": "email missing"}), 400
     if password is None or len(password.strip()) == 0:
-        return jsonify({ "error": "password missing" }), 400
+        return jsonify({"error": "password missing"}), 400
     try:
         users = User.search({'email': email})
     except Exception:
