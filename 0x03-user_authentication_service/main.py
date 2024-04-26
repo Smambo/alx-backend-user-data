@@ -61,7 +61,7 @@ def profile_logged(session_id: str) -> None:
     """Tests for retrieving profile info while logged"""
     url = "{}/profile".format(BASE_URL)
     req_cookies = {
-        'session_id': session_id,        
+        'session_id': session_id,
     }
     res = requests.get(url, cookies=req_cookies)
     assert res.status_code == 200
@@ -72,7 +72,7 @@ def log_out(session_id: str) -> None:
     """Tests for logging out of a session"""
     url = "{}/sessions".format(BASE_URL)
     req_cookies = {
-        'session_id': session_id,        
+        'session_id': session_id,
     }
     res = requests.delete(url, cookies=req_cookies)
     assert res.status_code == 200
